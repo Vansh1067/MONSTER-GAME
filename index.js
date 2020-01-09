@@ -18,20 +18,18 @@ function randomNumberM(){
 const MONSTER ="MONSTER";
 const HUMAN ="HUMAN"
 let player=HUMAN
-let mHealth=100;
-let pHealth=100;
-let COUNT_H=3;
-let COUNT_S=5;
-let Life_Line=1;
+let mHealth;
+let pHealth;
+let COUNT_H;
+let COUNT_S;
+let Life_Line;
 var START=true;
 
-/*  function START_GAME(){
+ function START_GAME(){
 
     if(START){
         START=false;
-        mHealth=100;
-    pHealth=100;
-    update(pHealth,mHealth);
+        Start();
         QUIT.innerHTML="QUIT";
         strongAttackBtn.disabled=START;
         attackBtn.disabled=START;
@@ -40,9 +38,10 @@ var START=true;
     }else{
         START=true;
         QUIT.innerHTML="START";
-        DISABLE()
-       
-    } 
+        Start();
+        DISABLE();
+
+       } 
 
 
 }
@@ -53,9 +52,17 @@ function DISABLE(){
     logBtn.disabled=START; 
 }
 DISABLE();
- */   
    
+   
+function Start(){
+    mHealth=100;
+    pHealth=100;
+    update(pHealth,mHealth);
+    COUNT_H=3;
+    COUNT_S=5;
+    Life_Line=1;
 
+}
 function Heal(){
     if(mHealth<100){
         if(COUNT_H > 0){
@@ -73,36 +80,30 @@ function Heal(){
 function winner(){
     if(pHealth < 0){
         alert("MONSTER WINS");
-        mHealth=100;
-        pHealth=100;
-        update(pHealth,mHealth);
-        
-        
+        START_GAME();
+       
     }
     else if(mHealth<0){
         alert("HUMAN WINS");
-        mHealth=100;
-        pHealth=100;
-        update(pHealth,mHealth);
-        
+        START_GAME();
     }
-   
-    
-   
-
+    else{
+        return;
+    }
 }
 function update(p,m){
-
-    MONSTER_UPDATE.value=m;
     HUMAN_UPDATE.value=p;
+    MONSTER_UPDATE.value=m;
+    
 }
 function Attack(a){
     if(mHealth >0 && pHealth>0){
         mHealth-=randomNumberH(a);
         pHealth-=randomNumberM();
         update(pHealth,mHealth);
-        winner()
+        winner();
     }
+   
 
    
 }
@@ -126,14 +127,11 @@ function LIFE_LINE(){
 
 attackBtn.addEventListener('click',()=>{
     Attack(A)
-     
-
- });
+});
  strongAttackBtn.addEventListener('click',()=>{
     if(COUNT_S>0){
         Attack(S);
         COUNT_S--;
-        
     }else if(COUNT_S==0){
         strongAttackBtn.setAttribute("disabled", false);
     }

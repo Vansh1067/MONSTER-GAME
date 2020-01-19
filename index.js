@@ -35,6 +35,7 @@ var START=true;
         attackBtn.disabled=START;
         healBtn.disabled=START;
         logBtn. disabled=START;
+        lifeLine.parentNode.addChild(lifeLine);
     }else{
         START=true;
         QUIT.innerHTML="START";
